@@ -1,0 +1,24 @@
+{
+  "name": "projet_cloud_accmanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juju630/Projet_Cloud_AccManager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/juju630/Projet_Cloud_AccManager/issues"
+  },
+  "homepage": "https://github.com/juju630/Projet_Cloud_AccManager#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.5.0",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}
