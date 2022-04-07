@@ -7,7 +7,7 @@ Chaque Compte (Account) est lié à un Client (Customers).
 
 # EndPoints #
 
-1. Account
+- Account
   - Get
     - / => Get All
     - /{id} => Find By Id
