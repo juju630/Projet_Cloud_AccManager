@@ -1,19 +1,18 @@
 package com.example.demo.repository;
 
-
 import com.example.demo.exceptions.EntityNotFoundException;
 import com.example.demo.exceptions.InternalErrorException;
 import com.example.demo.model.Account;
+import com.example.demo.model.Customers;
 import com.googlecode.objectify.ObjectifyService;
 
 import java.util.List;
 
-// C'est ici que l'on fera les Query SQL pour récupéré les données
-public class Account_Repository {
+public class Customer_Repository {
 
-    public Account getOnes(Integer id) throws InternalErrorException, EntityNotFoundException {
+    public Customers getOnes(Integer id) throws InternalErrorException, EntityNotFoundException {
         try{
-            Account tmp = ObjectifyService.ofy().load().type(Account.class).id(id).now();
+            Customers tmp = ObjectifyService.ofy().load().type(Customers.class).id(id).now();
             if(tmp == null){
                 throw new EntityNotFoundException();
             }
@@ -23,13 +22,13 @@ public class Account_Repository {
         }
     }
 
-    public List<Account> getAll() throws InternalErrorException, EntityNotFoundException  {
+    public List<Customers> getAll() throws InternalErrorException, EntityNotFoundException  {
         try {
-            List<Account> accounts = ObjectifyService.ofy().load().type(Account.class).list();
-            if (accounts == null) {
+            List<Customers> customers = ObjectifyService.ofy().load().type(Customers.class).list();
+            if (customers == null) {
                 throw new EntityNotFoundException();
             }
-            return accounts;
+            return customers;
         }catch (Exception e){
             throw new InternalErrorException();
         }
