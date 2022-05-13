@@ -1,19 +1,24 @@
 package com.example.demo.repository;
 
 
+import com.example.demo.entities.Account_Entities;
 import com.example.demo.exceptions.EntityNotFoundException;
 import com.example.demo.exceptions.InternalErrorException;
 import com.example.demo.model.Account;
 import com.googlecode.objectify.ObjectifyService;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 // C'est ici que l'on fera les Query SQL pour récupéré les données
+@Service
 public class Account_Repository {
 
-    public Account getOnes(Integer id) throws InternalErrorException, EntityNotFoundException {
+    public Account_Entities getOnes(String id) throws InternalErrorException, EntityNotFoundException {
         try{
-            Account tmp = ObjectifyService.ofy().load().type(Account.class).id(id).now();
+            Account_Entities tmp = ObjectifyService.ofy().load().type(Account_Entities.class).id(id).now();
             if(tmp == null){
                 throw new EntityNotFoundException();
             }
@@ -23,14 +28,24 @@ public class Account_Repository {
         }
     }
 
-    public List<Account> getAll() throws InternalErrorException, EntityNotFoundException  {
+    public List<Account_Entities> getAll() throws InternalErrorException, EntityNotFoundException  {
         try {
-            List<Account> accounts = ObjectifyService.ofy().load().type(Account.class).list();
+            List<Account_Entities> accounts = ObjectifyService.ofy().load().type(Account_Entities.class).list();
             if (accounts == null) {
                 throw new EntityNotFoundException();
             }
             return accounts;
         }catch (Exception e){
+            throw new InternalErrorException();
+        }
+    }
+
+    public void create(String nom, Integer ammount) {
+        try{
+            Account_Entities tmp = new Account_Entities(nom,ammount);
+            ObjectifyService.ofy().save().entity(tmp).now();
+        }catch (Exception e){
+            e.printStackTrace();
             throw new InternalErrorException();
         }
     }

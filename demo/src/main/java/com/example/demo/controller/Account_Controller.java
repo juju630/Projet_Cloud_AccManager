@@ -4,6 +4,7 @@ import com.example.demo.exceptions.EntityNotFoundException;
 import com.example.demo.exceptions.InternalErrorException;
 import com.example.demo.model.Account;
 import com.example.demo.service.Account_Service;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,29 +23,45 @@ public class Account_Controller {
     @GetMapping
     public List<Account> getAll() throws InternalErrorException, EntityNotFoundException {
         try{
-            return account_service.getAll();
+            List<Account> accounts;
+            accounts =  account_service.getAll();
+            return accounts;
         }catch (EntityNotFoundException e) {
             throw new EntityNotFoundException();
         }catch (InternalErrorException e){
             throw new InternalErrorException();
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        return null;
     }
 
     @GetMapping("/{id}")
-    public Account getOne(@PathVariable Integer id) throws InternalErrorException, EntityNotFoundException {
+    public Account getOne(@PathVariable String id) throws InternalErrorException, EntityNotFoundException {
         try{
-            return account_service.getOnes(id);
+            return new Account("Paul",1000);
+            //return account_service.getOnes(id);
         }catch (EntityNotFoundException e) {
             throw new EntityNotFoundException();
         }catch (InternalErrorException e){
             throw new InternalErrorException();
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        return null;
     }
 
     @PostMapping
     public void createAccount(){
-
-
+        try{
+            account_service.create("Jean",1000);
+        }catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException();
+        }catch (InternalErrorException e){
+            throw new InternalErrorException();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @PutMapping("/{id}")

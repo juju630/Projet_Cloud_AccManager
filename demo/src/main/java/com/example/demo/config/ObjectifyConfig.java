@@ -1,7 +1,7 @@
 package com.example.demo.config;
 
-import com.example.demo.model.Account;
-import com.example.demo.model.Customers;
+import com.example.demo.entities.Account_Entities;
+import com.example.demo.entities.Customers_Entities;
 import com.googlecode.objectify.ObjectifyFilter;
 import com.googlecode.objectify.ObjectifyService;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -39,8 +39,8 @@ public class ObjectifyConfig {
         public void contextInitialized(ServletContextEvent sce) {
 
             ObjectifyService.init();
-            ObjectifyService.register(Account.class);
-            ObjectifyService.register(Customers.class);
+            ObjectifyService.register(Account_Entities.class);
+            ObjectifyService.register(Customers_Entities.class);
         }
 
         @Override

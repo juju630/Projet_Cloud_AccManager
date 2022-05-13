@@ -5,9 +5,11 @@ import com.example.demo.exceptions.InternalErrorException;
 import com.example.demo.model.Account;
 import com.example.demo.model.Customers;
 import com.googlecode.objectify.ObjectifyService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class Customer_Repository {
 
     public Customers getOnes(Integer id) throws InternalErrorException, EntityNotFoundException {

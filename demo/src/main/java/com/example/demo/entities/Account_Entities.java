@@ -1,27 +1,30 @@
-package com.example.demo.model;
+package com.example.demo.entities;
 
-import com.example.demo.entities.Account_Entities;
+import com.example.demo.model.Account;
+import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
-public class Account {
+@Entity
+public class Account_Entities {
 
     @Id
     private Long id;
+
     private String nomCompte;
     private Integer amount;
 
-    public Account(String nomCompte, Integer amount) {
+    public Account_Entities(String nomCompte, Integer amount) {
         this.nomCompte = nomCompte;
         this.amount = amount;
     }
 
-    public Account() {
+    public Account_Entities() {
     }
 
-    public Account(Account_Entities account_entities) {
-        this.id = account_entities.getId();
-        this.nomCompte = account_entities.getNomCompte();
-        this.amount = account_entities.getAmount();
+    public Account_Entities(Account account){
+        this.id = account.getId();
+        this.nomCompte = account.getNomCompte();
+        this.amount = account.getAmount();
     }
 
     public Long getId() {
