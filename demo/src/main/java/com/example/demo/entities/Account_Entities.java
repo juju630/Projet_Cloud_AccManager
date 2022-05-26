@@ -12,6 +12,7 @@ public class Account_Entities {
 
     private String nomCompte;
     private Integer amount;
+    private Boolean risk;
 
     public Account_Entities(String nomCompte, Integer amount) {
         this.nomCompte = nomCompte;
@@ -25,6 +26,7 @@ public class Account_Entities {
         this.id = account.getId();
         this.nomCompte = account.getNomCompte();
         this.amount = account.getAmount();
+        this.risk = account.getRisk();
     }
 
     public Long getId() {
@@ -44,6 +46,12 @@ public class Account_Entities {
     }
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+    public Boolean getRisk() {
+        return risk;
+    }
+    public void setRisk(Boolean risk) {
+        this.risk = risk;
     }
 
     @Override

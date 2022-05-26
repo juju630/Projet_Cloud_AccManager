@@ -4,6 +4,7 @@ import com.example.demo.exceptions.EntityNotFoundException;
 import com.example.demo.exceptions.InternalErrorException;
 import com.example.demo.model.Account;
 import com.example.demo.service.Account_Service;
+import org.apache.coyote.Response;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +38,9 @@ public class Account_Controller {
     }
 
     @GetMapping("/{id}")
-    public Account getOne(@PathVariable String id) throws InternalErrorException, EntityNotFoundException {
+    public Account getOne(@PathVariable Long id) throws InternalErrorException, EntityNotFoundException {
         try{
-            return new Account("Paul",1000);
-            //return account_service.getOnes(id);
+            return account_service.getOnes(id);
         }catch (EntityNotFoundException e) {
             throw new EntityNotFoundException();
         }catch (InternalErrorException e){
@@ -52,9 +52,9 @@ public class Account_Controller {
     }
 
     @PostMapping
-    public void createAccount(){
+    public void createAccount(@RequestBody Account account){
         try{
-            account_service.create("Jean",1000);
+            account_service.create(account);
         }catch (EntityNotFoundException e) {
             throw new EntityNotFoundException();
         }catch (InternalErrorException e){
@@ -65,7 +65,42 @@ public class Account_Controller {
     }
 
     @PutMapping("/{id}")
-    public void updateAccount(@PathVariable Integer id){
+    public void updateAccount(@PathVariable Long id,@RequestBody Account account){
+        try{
+            account_service.update(id,account);
+        }catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException();
+        }catch (InternalErrorException e){
+            throw new InternalErrorException();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    @GetMapping("/risk/{id}")
+    public String evaluateRisk(@PathVariable Long id){
+        try{
+            return account_service.evaluateRisk(id);
+        }catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException();
+        }catch (InternalErrorException e){
+            throw new InternalErrorException();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        throw new InternalErrorException();
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAccount(@PathVariable Long id){
+        try{
+            account_service.delete(id);
+        }catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException();
+        }catch (InternalErrorException e){
+            throw new InternalErrorException();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

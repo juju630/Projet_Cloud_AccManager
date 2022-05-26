@@ -16,14 +16,17 @@ import java.util.List;
 @Service
 public class Account_Repository {
 
-    public Account_Entities getOnes(String id) throws InternalErrorException, EntityNotFoundException {
-        try{
+    public Account_Entities getOnes(Long id) throws InternalErrorException, EntityNotFoundException {
+        try {
             Account_Entities tmp = ObjectifyService.ofy().load().type(Account_Entities.class).id(id).now();
-            if(tmp == null){
+            if (tmp == null) {
                 throw new EntityNotFoundException();
             }
             return tmp;
+        }catch (EntityNotFoundException e){
+            throw new EntityNotFoundException();
         }catch (Exception e){
+            e.printStackTrace();
             throw new InternalErrorException();
         }
     }
@@ -40,13 +43,23 @@ public class Account_Repository {
         }
     }
 
-    public void create(String nom, Integer ammount) {
+    public void create(Account account) {
         try{
-            Account_Entities tmp = new Account_Entities(nom,ammount);
+            Account_Entities tmp = new Account_Entities(account);
             ObjectifyService.ofy().save().entity(tmp).now();
         }catch (Exception e){
             e.printStackTrace();
             throw new InternalErrorException();
         }
     }
+
+    public void delete(Account_Entities account_entities) {
+        try{
+            ObjectifyService.ofy().delete().entity(account_entities).now();
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new InternalErrorException();
+        }
+    }
+
 }
